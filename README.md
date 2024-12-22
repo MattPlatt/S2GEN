@@ -24,6 +24,9 @@ The system is divided into several modules and workflows, outlined below:
 ![diagram_1](https://github.com/user-attachments/assets/ebf8e6ee-859b-4c44-9bb5-ec3814221f6c)
 
 
+![diagram_1800](https://github.com/user-attachments/assets/d66c8802-8e8e-4cbc-b05a-ebf1b070eee7)
+
+
 
 ### 2. **Label Generation**
 - **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in `.txt` files.

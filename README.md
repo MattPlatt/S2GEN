@@ -21,7 +21,8 @@ The system is divided into several modules and workflows, outlined below:
 - **Customizable Blocks and Connectors**: The system allows flexibility in the number, size, and placement of blocks and connectors, ensuring varied training data.
 - **Cable Routing and Annotation**: Includes logic to connect blocks with dashed cables and annotate them with YOLO-compliant labels.
 
-![diagram_1](https://github.com/user-attachments/assets/cad2f19c-c407-4070-89ef-05ed1cc20173)
+![diagram_1](https://github.com/user-attachments/assets/ebf8e6ee-859b-4c44-9bb5-ec3814221f6c)
+
 
 
 ### 2. **Label Generation**

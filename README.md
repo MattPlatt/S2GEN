@@ -26,7 +26,7 @@ The system is divided into several modules and workflows, outlined below:
 ![diagram_1](https://github.com/user-attachments/assets/7150827a-5508-4bbf-a0da-f841d91516c8)
 
 diagram type 1: 
-    class_names 
+    class_names = {
         0: 'Block',
         1: 'Connector',
         3: 'Cable',
@@ -37,20 +37,21 @@ diagram type 1:
         9: 'Double Connector',
         10: 'Call Out Circle',
         11: 'Spare',
-        12: 'Group Box',
-        13: 'Spider Web of Angled Connections',
-        14: 'Verticle Structure',
+        12: 'Group Box', 
+        13: 'Spider Web of Angled Connections', # currently depricated
+        14: 'Verticle Structure', # currently depricated
         15: 'Double Call Out',
         16: 'SFP',
-        17: 'Extended Group Box',
-        18: 'Double Extended Group Box',
-        19: 'Extended Module',
-        20: 'Rounded Connector',
-        21: 'Double Group Box',
-        22: 'Double Extended Block',
-        23: 'Double Block',
-        24: 'Crooked Cable
+        17: 'Extended Group Box', # currently depricated
+        18: 'Double Extended Group Box', # currently depricated
+        19: 'Extended Module', # currently depricated
+        20: 'Rounded Connector', # currently depricated
+        21: 'Double Group Box', 
+        22: 'Double Extended Block', # currently depricated
+        23: 'Double Block', # currently depricated
+        24: 'Crooked Cable' # currently depricated
 
+    }
 ![diagram_1800](https://github.com/user-attachments/assets/d66c8802-8e8e-4cbc-b05a-ebf1b070eee7)
 
 Diagram type 2: 

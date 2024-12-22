@@ -21,7 +21,8 @@ The system is divided into several modules and workflows, outlined below:
 - **Customizable Blocks and Connectors**: The system allows flexibility in the number, size, and placement of blocks and connectors, ensuring varied training data.
 - **Cable Routing and Annotation**: Includes logic to connect blocks with dashed cables and annotate them with YOLO-compliant labels.
 
-![Example Diagram](diagram_1.png)
+![diagram_1](https://github.com/user-attachments/assets/cad2f19c-c407-4070-89ef-05ed1cc20173)
+
 
 ### 2. **Label Generation**
 - **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in `.txt` files.

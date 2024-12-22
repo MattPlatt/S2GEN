@@ -1,134 +1,54 @@
-# S2GEN
+# Artificial Intelligence Training System for Block Diagrams
 
-# S2gen: AI-Powered SysML Model Generation
+## Problem Statement
+
+The ability to read and convert images of cable block diagrams that follow standardized formatting across engineering organizations allows for rapid re-usability, portability, and versatility of existing data into a portable and easily digestible format. This system targets conversion into SysML 2.0, the latest version of the Model-Based Systems Engineering (MBSE) Systems Modeling Language. SysML 2.0 introduces a simpler, more powerful, and portable data format that is easier to work with compared to its predecessors.
+
+By training an AI model capable of converting these images into SysML 2.0, the resulting code can be seamlessly injected into MBSE tools for future engineering modeling use cases. Additionally, this approach enables adaptability to other formats as required, offering a highly flexible solution for engineering design and data interoperability.
+
+Due to the complexity and time sink associated with manually labeling massive amounts of cable block diagram examples, it was more efficient to create a Python script that dynamically generates cable block diagrams and programmatically places annotations around each object for training. This approach drastically reduces manual labor and allows for generating an unlimited number of training images, significantly saving time and resources.
 
 ## Overview
-Welcome to **S2gen**, a cutting-edge project leveraging state-of-the-art deep learning models to analyze complex diagrams and automatically generate SysML 2.0 models. This project showcases the intersection of artificial intelligence, machine learning, and systems engineering, with a focus on automating traditionally manual workflows.
 
-## Project Goals
-This project was designed to:
+This project automates the creation, annotation, and preprocessing of training data for AI models focused on detecting block diagrams, connectors, and cables. The system addresses the complexity of structured data layouts and prepares high-quality datasets for training object detection and instance segmentation models.
 
-1. Develop an AI pipeline capable of detecting and classifying elements in engineering diagrams (blocks, connectors, dashed lines, etc.).
-2. Extract textual information from identified diagram elements using Optical Character Recognition (OCR).
-3. Automate the generation of SysML 2.0 models, integrating detected objects and their relationships into a unified representation.
-4. Build a robust and modular framework for instance segmentation and logic inference using tools like Detectron2 and Tesseract OCR.
+## System Architecture and Workflow
+
+The system is divided into several modules and workflows, outlined below:
+
+### 1. **Image Generation**
+- **Randomized Diagram Creation**: Automatically generate synthetic images containing randomly placed blocks, connectors, and cables using Python's PIL library and custom scripts.
+- **Customizable Blocks and Connectors**: The system allows flexibility in the number, size, and placement of blocks and connectors, ensuring varied training data.
+- **Cable Routing and Annotation**: Includes logic to connect blocks with dashed cables and annotate them with YOLO-compliant labels.
+
+![Example Diagram](diagram_1.png)
+
+### 2. **Label Generation**
+- **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in `.txt` files.
+- **Custom Class Definitions**: The system supports multiple object classes such as blocks, connectors, cables, and group boxes.
+
+### 3. **Image Slicing**
+- **Slicing with Overlap**: Generated images are sliced into smaller patches with a configurable overlap (e.g., 25%) for training efficiency. 
+- **Label Adjustment**: Sliced images include adjusted bounding boxes to ensure labels are correctly aligned with the new coordinates of each slice.
+
+### 4. **Dataset Conversion**
+- **YOLO to JSON Conversion**: YOLO annotations are converted to COCO-style JSON format for use with Detectron2's instance segmentation and object detection models.
+- **Segmentation Masks**: The system generates masks for cables, blocks, and connectors, supporting instance segmentation tasks.
+
+### 5. **Cable-Specific Training**
+- **Focused Cable Detection**: A dedicated dataset and model are created exclusively for cables due to their complexity. This model focuses on detecting cables independently of other objects.
+
+### 6. **Comprehensive Model Training**
+- **Other Object Detection**: The remaining images, which include blocks and connectors, are processed and used to train another model to handle these objects.
+- **Separate and Combined Models**: The pipeline is modular, allowing separate models for cables and other objects or a combined detection approach.
 
 ## Key Features
-- **Custom Object Detection**: Training and inference pipelines built on Detectron2 for instance segmentation of blocks, connectors, cables, and dashed lines.
-- **OCR Integration**: Enhanced text extraction using Tesseract OCR, fine-tuned for engineering diagrams.
-- **SysML 2.0 Export**: Automated generation of SysML 2.0 code representing the relationships between diagram elements.
-- **Slicing and Scaling**: Efficient handling of large diagrams by slicing them into smaller segments for focused processing.
-- **Data Augmentation**: Advanced augmentations (e.g., brightness, contrast, rotations) to improve model generalization.
+- **Randomized Diagram Variability**: Generate diverse images with customizable block, connector, and cable configurations.
+- **Scalable Annotation System**: Supports thousands of images and labels for large-scale dataset creation.
+- **Instance Segmentation Ready**: Prepares data for advanced segmentation models like Detectron2.
 
-## Workflow
-
-### 1. **Data Preparation**
-- **Dataset**: Labeled engineering diagrams in COCO format, with categories for blocks, connectors, cables, and dashed lines.
-- **Dataset Registration**: Using Detectron2's dataset registration API to load and process training and validation data.
-
-### 2. **Model Training**
-- **Instance Segmentation**: Mask R-CNN (ResNet-101 FPN backbone) trained on annotated engineering diagrams.
-- **Custom Classes**: 9 primary classes trained, including blocks, connectors, and dashed lines with arrows.
-- **Augmentations**: Applied transformations like random brightness, contrast, rotations, and flips to improve robustness.
-- **Checkpointing**: Regular model checkpoints saved during training.
-
-### 3. **Inference and Post-Processing**
-- **Detection and Segmentation**: Run inference on validation images to predict bounding boxes and masks for diagram elements.
-- **Text Extraction**: Use OCR on bounding boxes to extract text labels for blocks and other elements.
-- **Relationship Logic**: Apply geometric rules to infer relationships between diagram elements (e.g., cables connecting blocks).
-
-### 4. **SysML 2.0 Generation**
-- **Logic Integration**: Convert detected objects and relationships into SysML 2.0 textual representations.
-- **Export**: Save SysML code in a structured format for further use in systems engineering tools.
-
-## Repository Structure
-```plaintext
-S2gen/
-|-- data/
-|   |-- train/
-|   |-- val/
-|-- scripts/
-|   |-- train.py
-|   |-- infer.py
-|   |-- preprocess.py
-|-- models/
-|   |-- mask_rcnn_r101_fpn.pth
-|-- outputs/
-|   |-- predictions.json
-|   |-- sysml_output.txt
-|-- README.md
-```
-
-## Technologies Used
-- **Deep Learning Frameworks**: PyTorch, Detectron2
-- **Optical Character Recognition**: Tesseract OCR
-- **Data Formats**: COCO JSON annotations
-- **Languages**: Python
-- **Visualization**: OpenCV
-
-## Achievements
-1. Successfully trained and fine-tuned Mask R-CNN models for multi-class instance segmentation.
-2. Implemented a robust OCR pipeline with adaptive thresholding and morphological transformations for improved text extraction.
-3. Automated SysML 2.0 generation, reducing manual modeling time for complex diagrams.
-4. Built a modular framework with extensible pipelines for future diagram types and use cases.
-
-## Challenges Overcome
-- **OCR Accuracy**: Developed techniques to focus on specific regions of bounding boxes, improving text recognition for engineering fonts and styles.
-- **Dataset Preparation**: Converted and augmented raw data into COCO format with consistent annotations.
-- **Model Generalization**: Used extensive augmentations and parameter tuning to enhance model robustness.
-
-## Installation and Usage
-### Prerequisites
-- Python 3.8+
-- NVIDIA GPU with CUDA support
-
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/S2gen.git
-   cd S2gen
-   ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Download trained models:
-   Place pre-trained weights in the `models/` directory.
-
-### Running the Project
-#### Train the Model
-```bash
-python scripts/train.py
-```
-#### Run Inference
-```bash
-python scripts/infer.py --image data/val/easy/diagram_8001.png
-```
-#### Generate SysML Code
-```bash
-python scripts/sysml_generator.py --predictions outputs/predictions.json
-```
-
-## Future Enhancements
-1. Expand the dataset to include more complex diagram elements like extended blocks and group boxes.
-2. Integrate NLP techniques for improved OCR results and text parsing.
-3. Implement real-time diagram processing using optimized inference pipelines.
-4. Explore additional AI architectures (e.g., Transformer-based models) for enhanced detection accuracy.
-
-## Why This Project?
-This project demonstrates:
-- Expertise in deep learning and AI frameworks (e.g., Detectron2, Tesseract OCR).
-- A systematic approach to solving complex engineering problems.
-- Integration of diverse technologies to achieve end-to-end automation.
-
-I aim to leverage the knowledge gained from this project to contribute to the field of Artificial Intelligence and pursue advanced studies in AI. This repository showcases my ability to design and implement innovative solutions to real-world problems.
-
-## Contact
-For questions or collaboration, please reach out to:
-- **Email**: your.email@example.com
-- **LinkedIn**: [Your Profile](https://linkedin.com/in/yourprofile)
-
----
-
-Thank you for visiting this repository! I hope this work demonstrates my technical proficiency and passion for advancing artificial intelligence applications.
+## Future Plans
+- **Installation and Usage Documentation**: Detailed steps for installing dependencies and running the system will be added.
+- **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
+- **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
 

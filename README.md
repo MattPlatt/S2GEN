@@ -26,7 +26,7 @@ The system is divided into several modules and workflows, outlined below:
 ![diagram_1](https://github.com/user-attachments/assets/7150827a-5508-4bbf-a0da-f841d91516c8)
 
 diagram type 1: 
-    class_names = {
+    class_names 
         0: 'Block',
         1: 'Connector',
         3: 'Cable',
@@ -49,20 +49,33 @@ diagram type 1:
         21: 'Double Group Box',
         22: 'Double Extended Block',
         23: 'Double Block',
-        24: 'Crooked Cable'
-    }
+        24: 'Crooked Cable
 
 ![diagram_1800](https://github.com/user-attachments/assets/d66c8802-8e8e-4cbc-b05a-ebf1b070eee7)
 
 Diagram type 2: 
-    class_names = {
-        0: 'Cable',
-    }
+    class_names:
+        0: 'Cable'
 
 
 ### 2. **Label Generation**
 - **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in `.txt` files.
 - **Custom Class Definitions**: The system supports multiple object classes such as blocks, connectors, cables, and group boxes.
+- 
+
+
+
+![diagram_1](https://github.com/user-attachments/assets/6ac33cac-b7f8-454f-b771-c229f482cfc6)
+
+Diagram Type 1:
+
+
+
+
+![diagram_10](https://github.com/user-attachments/assets/e64bc771-255b-4e30-af30-86b961ecac4f)
+
+Diagram type 2: 
+
 
 ### 3. **Image Slicing**
 - **Slicing with Overlap**: Generated images are sliced into smaller patches with a configurable overlap (e.g., 25%) for training efficiency. 

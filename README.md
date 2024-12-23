@@ -8,7 +8,7 @@ The training process involves the generation of synthetic datasets using Python 
 
 ## Overview
 
-This project automates the creation, annotation, and preprocessing of training data for AI models focused on detecting block diagrams, connectors, and cables. The system addresses the complexity of structured data layouts and prepares high-quality datasets for training object detection and instance segmentation models.
+This project automates the creation, annotation, and preprocessing of training data for AI models focused on detecting block diagram blocks, cables, connectors, and other classes that are standardized. Due to exponential complication, many classes have been ommited in the interim to establish a Minimal Viable Product (MVP) to proof the concept. The system addresses the complexity of structured data layouts and prepares high-quality datasets for training object detection and instance segmentation models.
 
 ## System Architecture and Workflow
 
@@ -50,22 +50,18 @@ The system is divided into several modules and workflows, outlined below:
 
 ## Workflow Steps at a glance.
 
-1. **Image Generation**: Use a script to name diagram type 1s as even and cable diagrams as odd, ensuring image-label synchronization.
+1. **Image Generation**:Utilizing Python and PIL create randamized cable block diagram images.
 2. **Label Generation and Conversion**: Initially experiment with YOLO; transition to Faster R-CNN ResNet 101, requiring MASK formatting in JSON.![diagram_1](https://github.com/user-attachments/assets/b6a64c40-31bc-42ab-bf55-af9d363d7ae6)![diagram_10](https://github.com/user-attachments/assets/c05865ab-bac6-43f1-a15c-209594104a63)
 
 
 3. **Image Slicing**: Slice each image with a 25% overlap for enhanced training efficiency.![sliced_image_with_boxes](https://github.com/user-attachments/assets/81e08538-b805-4cf8-b73f-8a7f1a746e16)
+7 **Run ResNet 101 on full size image**: Use saved weights to predict and save results in JSON format.
+8. **Run ResNet 101 on sliced images with custom settings**: Slice images, run predictions on slices, and adjust bounding box coordinates for the original file.
+9. **Combine Predictions**: Merge predictions from both diagram types into a unified COCO JSON format for implementation
+10. **Display Predictions**: Visualize combined predictions on the original image for validation.![diagram_8001_annotated (1)](https://github.com/user-attachments/assets/54cf18c3-ee87-4591-8082-3b302b400358)
 
-
-4. **Train Model for Diagram Type 1**: Train a model on diagram type 1 and save weights.
-5. **Train Cable-Specific Model**: Train a dedicated model for diagram type 2 (cables exclusively), leveraging sliced images for better cable detection.
-6. **Validation and Testing**: Validate and test models to ensure desired accuracy levels.
-7. **Run ResNet 101 on Diagram Type 1**: Use saved weights to predict and save results in JSON format.
-8. **Slice and Process Diagram Type 2**: Slice images, run predictions on slices, and adjust bounding box coordinates for the original file.
-9. **Combine Predictions**: Merge predictions from both diagram types into a unified COCO JSON format.
-10. **Display Predictions**: Visualize combined predictions on the original image for validation.
 11. **Run Object Character Recognition (OCR) to capture the location and content of written text within the image.
-12. **SysML Conversion**: Convert JSON predictions into SysMLv2 using custom logic.
+12. **SysML Conversion**: Convert JSON predictions and OCR into SysMLv2 using custom logic.
 13. **Export SysMLv2 File**: Output the final SysMLv2 representation for engineering use utlizing finalized predictions file and captured OCR.
 
 package ConnectionExample {
@@ -156,4 +152,5 @@ package ConnectionExample {
 - **Installation and Usage Documentation**: Detailed steps for installing dependencies and running the system will be added.
 - **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
 - **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
+- **Explore simplified data creation and labeling process for future enhancements and re-use in other engineering fields. 
 

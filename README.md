@@ -50,11 +50,15 @@ The system is divided into several modules and workflows, outlined below:
 - **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
 - **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
 
-## Workflow Steps
+## Workflow Steps at a glance.
 
 1. **Image Generation**: Use a script to name diagram type 1s as even and cable diagrams as odd, ensuring image-label synchronization.
-2. **Label Generation and Conversion**: Initially experiment with YOLO; transition to Faster R-CNN ResNet 101, requiring MASK formatting in JSON.
-3. **Image Slicing**: Slice each image with a 25% overlap for enhanced training efficiency.
+2. **Label Generation and Conversion**: Initially experiment with YOLO; transition to Faster R-CNN ResNet 101, requiring MASK formatting in JSON.![diagram_1](https://github.com/user-attachments/assets/b6a64c40-31bc-42ab-bf55-af9d363d7ae6)![diagram_10](https://github.com/user-attachments/assets/c05865ab-bac6-43f1-a15c-209594104a63)
+
+
+3. **Image Slicing**: Slice each image with a 25% overlap for enhanced training efficiency.![sliced_image_with_boxes](https://github.com/user-attachments/assets/81e08538-b805-4cf8-b73f-8a7f1a746e16)
+
+
 4. **Train Model for Diagram Type 1**: Train a model on diagram type 1 and save weights.
 5. **Train Cable-Specific Model**: Train a dedicated model for diagram type 2 (cables exclusively), leveraging sliced images for better cable detection.
 6. **Validation and Testing**: Validate and test models to ensure desired accuracy levels.
@@ -64,4 +68,38 @@ The system is divided into several modules and workflows, outlined below:
 10. **Display Predictions**: Visualize combined predictions on the original image for validation.
 11. **SysML Conversion**: Convert JSON predictions into SysMLv2 using custom logic.
 12. **Export SysMLv2 File**: Output the final SysMLv2 representation for engineering use.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Future Plans
+- **Installation and Usage Documentation**: Detailed steps for installing dependencies and running the system will be added.
+- **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
+- **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
 

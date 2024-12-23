@@ -2,11 +2,9 @@
 
 ## Problem Statement
 
-The ability to read and convert images of cable block diagrams that follow standardized formatting across engineering organizations allows for rapid re-usability, portability, and versatility of existing data into a portable and easily digestible format. This system targets conversion into SysML 2.0, the latest version of the Model-Based Systems Engineering (MBSE) Systems Modeling Language. SysML 2.0 introduces a simpler, more powerful, and portable data format that is easier to work with compared to its predecessors.
+This project focuses on creating and training a Convolutional Neural Network (CNN) utilizing instance segmentation and object detection to automatically read and convert Systems Engineering Diagrams into a portable and reusable format for disparate systems, with a primary application in SysML 2.0. The initial focus is specifically on cable block diagrams and their associated engineering standards, ensuring the process aligns with established guidelines for accuracy and consistency. However, the methodology is designed to be adaptable, meaning that if successful, it could be extended to other types of engineering models, such as electrical schematics, piping and instrumentation diagrams (P&IDs), and mechanical layouts. This flexibility highlights the broader potential of the approach, offering a scalable solution to streamline data extraction and integration across various standardized formats, ultimately enhancing Model-Based Systems Engineering (MBSE) workflows.
 
-By training an AI model capable of converting these images into SysML 2.0, the resulting code can be seamlessly injected into MBSE tools for future engineering modeling use cases. Additionally, this approach enables adaptability to other formats as required, offering a highly flexible solution for engineering design and data interoperability.
-
-Due to the complexity and time sink associated with manually labeling massive amounts of cable block diagram examples, it was more efficient to create a Python script that dynamically generates cable block diagrams and programmatically places annotations around each object for training. This approach drastically reduces manual labor and allows for generating an unlimited number of training images, significantly saving time and resources.
+The training process involves the generation of synthetic datasets using Python scripts that programmatically create cable block diagrams and annotate them dynamically. This approach ensures a diverse and extensive dataset, reducing the dependency on labor-intensive manual labeling while enhancing the model’s ability to generalize. By employing iterative training and validation, the AI refines its understanding of the diagram elements, ensuring high accuracy and adaptability. Furthermore, the modularity of the AI framework allows for future extensions to recognize components in other diagram types, making it a scalable and versatile solution for engineering design and data interoperability.
 
 ## Overview
 
@@ -66,8 +64,64 @@ The system is divided into several modules and workflows, outlined below:
 8. **Slice and Process Diagram Type 2**: Slice images, run predictions on slices, and adjust bounding box coordinates for the original file.
 9. **Combine Predictions**: Merge predictions from both diagram types into a unified COCO JSON format.
 10. **Display Predictions**: Visualize combined predictions on the original image for validation.
-11. **SysML Conversion**: Convert JSON predictions into SysMLv2 using custom logic.
-12. **Export SysMLv2 File**: Output the final SysMLv2 representation for engineering use.
+11. **Run Object Character Recognition (OCR) to capture the location and content of written text within the image.
+12. **SysML Conversion**: Convert JSON predictions into SysMLv2 using custom logic.
+13. **Export SysMLv2 File**: Output the final SysMLv2 representation for engineering use utlizing finalized predictions file and captured OCR.
+
+package ConnectionExample {
+
+    // Part definitions for Blocks, Modules, Connectors, and Cables
+    part block26: Block { attribute name = ""; }
+    part block34: Block { attribute name = ""; }
+    part block36: Block { attribute name = ""; }
+    part block38: Block { attribute name = ""; }
+    part block40: Block { attribute name = ""; }
+    part block47: Block { attribute name = "L BLOCK-3"; }
+    part module46: Module;
+    part module48: Module;
+
+    // Connector definitions
+    part connector0: Connector;
+    part connector1: Connector;
+    part connector2: Connector;
+    part connector6: Connector;
+    part connector11: Connector;
+    part connector20: Connector;
+    part connector21: Connector;
+    part connector23: Connector;
+    part connector28: Connector;
+    part connector35: Connector;
+    part connector43: Connector;
+    part connector45: Connector;
+
+    // Cable parts with unique identifiers
+    part cable9: Cable { attribute id = 9; };
+    part cable16: Cable { attribute id = 16; };
+    part cable25: Cable { attribute id = 25; };
+    part cable29: Cable { attribute id = 29; };
+    part cable30: Cable { attribute id = 30; };
+    part cable32: Cable { attribute id = 32; };
+
+    // Interface definitions for connections between parts
+    interface blockConnectorConnection: BinaryInterface connect connector0 to block38 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector1 to block36 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector2 to block26 using Connector;
+    interface moduleConnectorConnection: BinaryInterface connect connector2 to module48 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector6 to block26 using Connector;
+    interface moduleConnectorConnection: BinaryInterface connect connector6 to module46 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector11 to block47 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector20 to block36 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector21 to block47 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector23 to block36 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector28 to block36 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector35 to block47 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector43 to block38 using Connector;
+    interface blockConnectorConnection: BinaryInterface connect connector45 to block47 using Connector;
+    interface moduleBlockConnection: BinaryInterface connect module46 to block26 using Module;
+    interface moduleBlockConnection: BinaryInterface connect module48 to block26 using Module;
+
+}
+
 
 
 

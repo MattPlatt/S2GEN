@@ -1,4 +1,4 @@
-# Artificial Intelligence Training System for Block Diagrams
+# Object Detection and Instance Segmentation for converting Images to SysML 2.0
 
 ## Problem Statement
 

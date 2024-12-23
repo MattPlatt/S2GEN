@@ -21,62 +21,9 @@ The system is divided into several modules and workflows, outlined below:
 - **Customizable Blocks and Connectors**: The system allows flexibility in the number, size, and placement of blocks and connectors, ensuring varied training data.
 - **Cable Routing and Annotation**: Includes logic to connect blocks with dashed cables and annotate them with YOLO-compliant labels.
 
-
-
-![diagram_1](https://github.com/user-attachments/assets/7150827a-5508-4bbf-a0da-f841d91516c8)
-
-diagram type 1: 
-    class_names = {
-        0: 'Block',
-        1: 'Connector',
-        3: 'Cable',
-        5: 'Dashed Line with Arrow',  # Keeping one instance
-        6: 'Double Box',
-        7: 'Module',
-        8: 'Call Out',  # Call Out class ID
-        9: 'Double Connector',
-        10: 'Call Out Circle',
-        11: 'Spare',
-        12: 'Group Box', 
-        13: 'Spider Web of Angled Connections', # currently depricated
-        14: 'Verticle Structure', # currently depricated
-        15: 'Double Call Out',
-        16: 'SFP',
-        17: 'Extended Group Box', # currently depricated
-        18: 'Double Extended Group Box', # currently depricated
-        19: 'Extended Module', # currently depricated
-        20: 'Rounded Connector', # currently depricated
-        21: 'Double Group Box', 
-        22: 'Double Extended Block', # currently depricated
-        23: 'Double Block', # currently depricated
-        24: 'Crooked Cable' # currently depricated
-
-    }
-![diagram_1800](https://github.com/user-attachments/assets/d66c8802-8e8e-4cbc-b05a-ebf1b070eee7)
-
-Diagram type 2: 
-    class_names:
-        0: 'Cable'
-
-
 ### 2. **Label Generation**
-- **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in `.txt` files.
+- **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in .txt files.
 - **Custom Class Definitions**: The system supports multiple object classes such as blocks, connectors, cables, and group boxes.
-- 
-
-
-
-![diagram_1](https://github.com/user-attachments/assets/6ac33cac-b7f8-454f-b771-c229f482cfc6)
-
-Diagram Type 1:
-
-
-
-
-![diagram_10](https://github.com/user-attachments/assets/e64bc771-255b-4e30-af30-86b961ecac4f)
-
-Diagram type 2: 
-
 
 ### 3. **Image Slicing**
 - **Slicing with Overlap**: Generated images are sliced into smaller patches with a configurable overlap (e.g., 25%) for training efficiency. 
@@ -102,4 +49,19 @@ Diagram type 2:
 - **Installation and Usage Documentation**: Detailed steps for installing dependencies and running the system will be added.
 - **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
 - **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
+
+## Workflow Steps
+
+1. **Image Generation**: Use a script to name diagram type 1s as even and cable diagrams as odd, ensuring image-label synchronization.
+2. **Label Generation and Conversion**: Initially experiment with YOLO; transition to Faster R-CNN ResNet 101, requiring MASK formatting in JSON.
+3. **Image Slicing**: Slice each image with a 25% overlap for enhanced training efficiency.
+4. **Train Model for Diagram Type 1**: Train a model on diagram type 1 and save weights.
+5. **Train Cable-Specific Model**: Train a dedicated model for diagram type 2 (cables exclusively), leveraging sliced images for better cable detection.
+6. **Validation and Testing**: Validate and test models to ensure desired accuracy levels.
+7. **Run ResNet 101 on Diagram Type 1**: Use saved weights to predict and save results in JSON format.
+8. **Slice and Process Diagram Type 2**: Slice images, run predictions on slices, and adjust bounding box coordinates for the original file.
+9. **Combine Predictions**: Merge predictions from both diagram types into a unified COCO JSON format.
+10. **Display Predictions**: Visualize combined predictions on the original image for validation.
+11. **SysML Conversion**: Convert JSON predictions into SysMLv2 using custom logic.
+12. **Export SysMLv2 File**: Output the final SysMLv2 representation for engineering use.
 

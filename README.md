@@ -10,7 +10,7 @@ The training process involves the generation of synthetic datasets using Python 
 
 This project automates the creation, annotation, and preprocessing of training data for AI models focused on detecting block diagram blocks, cables, connectors, and other classes that are standardized. Due to exponential complication, many classes have been ommited in the interim to establish a Minimal Viable Product (MVP) to proof the concept. The system addresses the complexity of structured data layouts and prepares high-quality datasets for training object detection and instance segmentation models.
 
-## System Architecture and Workflow
+## Training the Models
 
 The system is divided into several modules and workflows, outlined below:
 
@@ -43,12 +43,7 @@ The system is divided into several modules and workflows, outlined below:
 - **Scalable Annotation System**: Supports thousands of images and labels for large-scale dataset creation.
 - **Instance Segmentation Ready**: Prepares data for advanced segmentation models like Detectron2.
 
-## Future Plans
-- **Installation and Usage Documentation**: Detailed steps for installing dependencies and running the system will be added.
-- **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
-- **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
-
-## Workflow Steps at a glance.
+## Workflow Steps for development and training
 
 1. **Image Generation**:Utilizing Python and PIL create randamized cable block diagram images.
 2. **Label Generation and Conversion**: Initially experiment with YOLO; transition to Faster R-CNN ResNet 101, requiring MASK formatting in JSON.![diagram_1](https://github.com/user-attachments/assets/b6a64c40-31bc-42ab-bf55-af9d363d7ae6)![diagram_10](https://github.com/user-attachments/assets/c05865ab-bac6-43f1-a15c-209594104a63)
@@ -123,7 +118,22 @@ package ConnectionExample {
 
 
 
+## Plans for Implementation of Pipeline
 
+1. **Organize Dataset: Seperate Master Parts List (MPL) and Cable Block Diagrams into two seperate pdfs.
+2. **Define locations of each file; C:\Users\muser\Documents\Data\.pdf
+3. **Run the model on both which will...
+4. **Convert each pdf to seperate images for processing that are both 250 DPI (2752, 2176).
+5. **Run OCR on the MPL and save it to a csv for processing
+6. **Run each cable block diagram full image to detect and classify Blocks, Connectors, Modules, Spares, Call Outs, Call Out Circles, Dashed line with Arrows, Double Boxes, and Double Connectors. Save predictions.
+7. **Slice each cable block diagram image into seperate peices for classifying and detecting cables.
+8. **Run Cable Detection Model on image slices.
+9. **Convert predictions back into TRUE location on original image using file naming schema.
+10. **Combine predictions from both models for each full image.
+11. **Run and save OCR on full images to capture text and text locations for conversion
+12. **For each full image, convert predictions to sysml2.0 using; combined predictions file, full image OCR data, MPL, and defined relationships between classes.
+13. **Run analysis to verify if twins exist between images, if they do, combine them into one Sysml 2.0 block.
+14. **Export SysML 2.0 file.
 
 
 
@@ -152,5 +162,7 @@ package ConnectionExample {
 - **Installation and Usage Documentation**: Detailed steps for installing dependencies and running the system will be added.
 - **Extended Dataset Features**: Incorporate additional classes and annotations for more complex diagrams.
 - **Enhanced Models**: Explore advanced architectures to improve detection and segmentation accuracy.
-- **Explore simplified data creation and labeling process for future enhancements and re-use in other engineering fields. 
+- **Explore simplified data creation and labeling process for future enhancements and re-use in other engineering fields.
+- **Train on a wider variety of classes. Especially dashed line with arrow.
+- **Development of Master Parts List table parser with OCR linking bubble callout ID's to Part Numbers
 

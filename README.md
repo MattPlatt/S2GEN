@@ -46,7 +46,7 @@ The system is divided into several modules and workflows, outlined below:
 ## Workflow Steps for development and training
 
 1. **Image Generation**:Utilizing Python and PIL create randamized cable block diagram images.
-2. **Label Generation and Conversion**: Initially experiment with YOLO; transition to Faster R-CNN ResNet 101, requiring MASK formatting in JSON.![diagram_1](https://github.com/user-attachments/assets/b6a64c40-31bc-42ab-bf55-af9d363d7ae6)![diagram_10](https://github.com/user-attachments/assets/c05865ab-bac6-43f1-a15c-209594104a63)
+2. **Label Generation and Conversion**:Utilizing Faster R-CNN ResNet 101, requiring MASK formatting in JSON.![diagram_1](https://github.com/user-attachments/assets/b6a64c40-31bc-42ab-bf55-af9d363d7ae6)![diagram_10](https://github.com/user-attachments/assets/c05865ab-bac6-43f1-a15c-209594104a63)
 
 
 3. **Image Slicing**: Slice each image with a 25% overlap for enhanced training efficiency.![sliced_image_with_boxes](https://github.com/user-attachments/assets/81e08538-b805-4cf8-b73f-8a7f1a746e16)

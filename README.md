@@ -17,18 +17,18 @@ The system is divided into several modules and workflows, outlined below:
 ### 1. **Image Generation**
 - **Randomized Diagram Creation**: Automatically generate synthetic images containing randomly placed blocks, connectors, and cables using Python's PIL library and custom scripts.
 - **Customizable Blocks and Connectors**: The system allows flexibility in the number, size, and placement of blocks and connectors, ensuring varied training data.
-- **Cable Routing and Annotation**: Includes logic to connect blocks with dashed cables and annotate them with YOLO-compliant labels.
+- **Cable Routing and Annotation**: Includes logic to connect blocks with dashed cables and annotate them with YOLO-compliant labels and COCO JSON compliant annotation files.
 
 ### 2. **Label Generation**
-- **YOLO Format Labels**: Each generated image includes corresponding YOLO labels for object detection tasks. Labels are normalized and stored in .txt files.
+- **COCO JSON Format**: Each generated image includes corresponding JSON labels for object detection tasks. 
 - **Custom Class Definitions**: The system supports multiple object classes such as blocks, connectors, cables, and group boxes.
 
 ### 3. **Image Slicing**
-- **Slicing with Overlap**: Generated images are sliced into smaller patches with a configurable overlap (e.g., 25%) for training efficiency. 
+- **Slicing with Overlap**: Generated images are sliced into smaller patches with a configurable overlap (e.g., 25%) for training efficiency. This is due to the large size of cable block diagrams. Slicing images into smaller peices allows for the Convolutional layers to detect the small dashed lines without them dissapating due to feature map downsampling through the convolutional layers.
 - **Label Adjustment**: Sliced images include adjusted bounding boxes to ensure labels are correctly aligned with the new coordinates of each slice.
 
 ### 4. **Dataset Conversion**
-- **YOLO to JSON Conversion**: YOLO annotations are converted to COCO-style JSON format for use with Detectron2's instance segmentation and object detection models.
+- **YOLO to JSON Conversion**: YOLO annotations are converted to COCO-style JSON format for use with Detectron2's instance segmentation and object detection models. This is due to using YOLO in the begining of the project. This needs to be changed in the diagram creation scripts.
 - **Segmentation Masks**: The system generates masks for cables, blocks, and connectors, supporting instance segmentation tasks.
 
 ### 5. **Cable-Specific Training**
